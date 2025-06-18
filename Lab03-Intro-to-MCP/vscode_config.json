@@ -1,0 +1,9 @@
+{
+    "weather": {
+            "command": "python",
+            "args": [
+                "C:\\Users\\katukagloria\\projects\\AIA_SK_KSB\\Lab07_Weather_MCP\\weather_server.py",
+                "weather.py"
+            ]
+        }
+}
