@@ -5,21 +5,25 @@ import requests
 from mcp.server.fastmcp import FastMCP 
 
 # Initialize FastMCP server
-mcp = FastMCP("weather_server")
+mcp = FastMCP("Weather")
 
 #defining constants
 weather_api_base = "https://wttr.in"
-user_agent = "weather-mcp-server/1.0"
 
 # defining the MCP tools using the annotator @mcp.tool()
 @mcp.tool()
-def get_weather_info(location: str) -> str:
-    """Get Weather information for a given location.
-    
-    Args:
-        location (str): The location for which to get the weather information. The location needs to be a proper city name like Mumbai, Tokyo etc.
+async def get_weather_info(location: str) -> str:
+    """
+    Fetches the weather information for the specified location.
+
+    Parameters:
+    name (str): The location to fetch weather for.
+
+    Returns:
+    str: Weather information as a JSON string.
     """
     
+    weather_api_base = "https://wttr.in"
     url = f"{weather_api_base}/{location}?format=j1"
     
     response = requests.get(url)
@@ -28,4 +32,4 @@ def get_weather_info(location: str) -> str:
 
 if __name__ == "__main__":
     # initialize and start the MCP server
-    mcp.run()
+    mcp.run(transport='stdio')

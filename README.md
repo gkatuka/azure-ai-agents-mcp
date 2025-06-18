@@ -4,6 +4,7 @@
 
 * Azure AI Foundry resource with an AI Hub and AI Project
 * Deploy a gpt-4o or later model
+* (Optional)create a Bing Grounding Tool and coonect it to your project (link)[https://learn.microsoft.com/en-us/azure/ai-foundry/agents/how-to/tools/bing-grounding]
 
 ## Setup
 
@@ -13,8 +14,9 @@
     ```
 2. **Configure environment variables** in a `.env` file:
     ```
-    AZURE_AI_ENDPOINT=your-azure-endpoint
-    AZURE_AI_API_VERSION=your-azure-endpoint-version
+    PROJECT_ENDPOINT=your-your-azure-ai-foundry-project-endpoint
+    MODEL_DEPLOYMENT_NAME=your-azure-ai-foundry-model
+    (optional) BING_CONNECTION_NAME= your-bing-tool-connection-name - If you created a bing grounding tool and connected it to your project...
     ```
 
 ## Hands-on Labs
@@ -30,7 +32,7 @@ Lab 2 introduces you to AI agents in Azure. You will learn how to build a simple
 ### Lab 2 - Function Calling 
 Lab 2 introduces you to connecting tools via function calling. This includes: 
 * Function calling using python code
-* Function calling using Bing Tool 
+* Function calling using Bing Tool (optional)
 
 ### Lab 3 - Function Calling 
 Lab 3 introduces you to connecting tools via MCP. This includes: 

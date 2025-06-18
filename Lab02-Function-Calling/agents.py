@@ -2,6 +2,8 @@ import os, time
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.agents.models import ListSortOrder, MessageRole
+
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,18 +16,22 @@ project_client = AIProjectClient(
     endpoint=os.getenv("PROJECT_ENDPOINT"),
 )
 
+
 # Create a new agent 
 with project_client:
+
+
     agent = project_client.agents.create_agent( 
         model=model,
         name="my-assistant",
         instructions="You are helpful assistant",
         # tools="Add tools here"
     )
+   
     print(f"Created agent, agent ID: {agent.id}")
 
-    ## Uncomment to use an exisitng agent 
-    # agent = project_client.agents.get_agent(agent_id="asst_41MH7BQMoT06Jx8pZ2CqgPaI")
+    ## Uncomment to use an existing agent 
+    # agent = project_client.agents.get_agent(agent_id="")
     # print(f"Using existing agent, agent ID: {agent.id}")
 
     # Create a new thread to track the session
@@ -66,9 +72,9 @@ with project_client:
         for message in messages:
             # if message.role == MessageRole.agent:
             print(f"{message.role}: {message.content[-1].text.value}")
-
+            
         user_prompt = input("Type 'exit' to quit or press Enter to continue: ")
-    
+
     # Delete the agent once done
     # project_client.agents.delete_agent(agent.id)
     # print("Deleted agent")
