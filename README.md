@@ -34,7 +34,7 @@ Lab 2 introduces you to connecting tools via function calling. This includes:
 * Function calling using python code
 * Function calling using Bing Tool (optional)
 
-### Lab 3 - Function Calling 
+### Lab 3 - Intro to MCP
 Lab 3 introduces you to connecting tools via MCP. This includes: 
 * Introduction to MCP servers 
 * Connecting MCP servers to VSCode 
