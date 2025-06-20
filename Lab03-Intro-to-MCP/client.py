@@ -5,8 +5,7 @@ from mcp.client.stdio import stdio_client
 
 async def main():
     server_script_path = "C:\\Users\\katukagloria\\azure-ai-agents-mcp\\Lab03-Intro-to-MCP\\greeting_server.py"  
-    # server_script_path = "C:\\Users\\katukagloria\\azure-ai-agents-mcp\\Lab03-Intro-to-MCP\\weather_server.py" - remove before committing 
-
+    
     server_params = StdioServerParameters(
         command="python",
         args=[server_script_path],

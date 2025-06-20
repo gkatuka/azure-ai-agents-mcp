@@ -1,4 +1,5 @@
 import os, time
+import jsonref
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.agents.models import ListSortOrder, MessageRole
@@ -7,8 +8,8 @@ from azure.ai.agents.models import ListSortOrder, MessageRole
 from dotenv import load_dotenv
 
 load_dotenv()
-#Connect to Azure AI Project using the deployed model
 
+#Connect to Azure AI Project using the deployed model
 model=os.getenv("MODEL_DEPLOYMENT_NAME")
 
 project_client = AIProjectClient(
@@ -16,15 +17,14 @@ project_client = AIProjectClient(
     endpoint=os.getenv("PROJECT_ENDPOINT"),
 )
 
-
 # Create a new agent 
 with project_client:
-
 
     agent = project_client.agents.create_agent( 
         model=model,
         name="my-assistant",
-        instructions="You are helpful assistant",
+        instructions="You are a helpful assistant. "
+                     "When tool calls are required, ALWAYS use the provided tools. ",
         # tools="Add tools here"
     )
    
@@ -71,7 +71,7 @@ with project_client:
         messages = project_client.agents.messages.list(thread_id=thread.id)
         for message in messages:
             # if message.role == MessageRole.agent:
-            print(f"{message.role}: {message.content[-1].text.value}")
+            print(f"{message.role}: {message.content[0].text.value}")
             
         user_prompt = input("Type 'exit' to quit or press Enter to continue: ")
 

@@ -18,8 +18,8 @@ project_client = AIProjectClient(
 with project_client:
     agent = project_client.agents.create_agent( 
         model=model,
-        name="my-assistant",
-        instructions="You are helpful assistant",
+        name="",
+        instructions="",
         # tools="Add tools here"
     )
     print(f"Created agent, agent ID: {agent.id}")
