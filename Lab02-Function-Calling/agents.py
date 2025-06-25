@@ -3,7 +3,9 @@ import jsonref
 from azure.ai.projects import AIProjectClient
 from azure.identity import DefaultAzureCredential
 from azure.ai.agents.models import ListSortOrder, MessageRole
-
+from azure.ai.agents.models import FunctionTool
+from functions import user_functions
+from azure.ai.agents.models import OpenApiTool, OpenApiAnonymousAuthDetails
 
 from dotenv import load_dotenv
 
@@ -17,17 +19,35 @@ project_client = AIProjectClient(
     endpoint=os.getenv("PROJECT_ENDPOINT"),
 )
 
+# create a FunctionTool with the user-defined functions
+function = FunctionTool(functions=user_functions)
+
+# Uncomment the following  to use OpenAPI tools
+# with open("./weather_openapi.json", "r") as f:
+#     openapi_spec = jsonref.loads(f.read()) # read the OpenAPI specs from a file
+
+# auth = OpenApiAnonymousAuthDetails() # create auth for OpenAPI tool
+# openapi = OpenApiTool( # initialize OpenApiTool with the spec and auth
+#     name="get_weather", 
+#     spec=openapi_spec, 
+#     description="Retrieve weather information for a location", 
+#     auth=auth
+# ) 
+
 # Create a new agent 
 with project_client:
 
     agent = project_client.agents.create_agent( 
         model=model,
-        name="my-assistant",
+        name="my-assistant-tools",
         instructions="You are a helpful assistant. "
                      "When tool calls are required, ALWAYS use the provided tools. ",
-        # tools="Add tools here"
+        tools= function.definitions
+        # tools = openapi.definitions  # Uncomment to use OpenAPI tool
     )
-   
+    
+    project_client.agents.enable_auto_function_calls(tools=function)
+
     print(f"Created agent, agent ID: {agent.id}")
 
     ## Uncomment to use an existing agent 
